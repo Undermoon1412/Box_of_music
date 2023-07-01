@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>832</width>
+    <height>528</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>何易云</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="res.qrc">
+    <normaloff>:/res/iTunes.ico</normaloff>:/res/iTunes.ico</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <widget class="QWidget" name="widget" native="true">
+      <widget class="QWidget" name="main_widget" native="true">
+       <property name="geometry">
+        <rect>
+         <x>-10</x>
+         <y>0</y>
+         <width>831</width>
+         <height>381</height>
+        </rect>
+       </property>
+       <widget class="QTabWidget" name="tabWidget">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>10</y>
+          <width>801</width>
+          <height>351</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QTabWidget QTabBar::tab
+{
+	font-size:25px;
+}
+
+QTabWidget QTabBar
+{
+	font-size: 25px;
+	font-weight:bold;
+	width:400;
+	
+}
+</string>
+        </property>
+        <property name="currentIndex">
+         <number>1</number>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>25</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="documentMode">
+         <bool>false</bool>
+        </property>
+        <property name="movable">
+         <bool>false</bool>
+        </property>
+        <widget class="SerchMusic" name="tab">
+         <attribute name="icon">
+          <iconset resource="res.qrc">
+           <normaloff>:/res/pause.png</normaloff>:/res/pause.png</iconset>
+         </attribute>
+         <attribute name="title">
+          <string>搜索音乐</string>
+         </attribute>
+        </widget>
+        <widget class="downloadMusic" name="tab_2">
+         <attribute name="icon">
+          <iconset resource="res.qrc">
+           <normaloff>:/res/pause.png</normaloff>:/res/pause.png</iconset>
+         </attribute>
+         <attribute name="title">
+          <string>本地音乐</string>
+         </attribute>
+        </widget>
+       </widget>
+      </widget>
+      <widget class="player" name="musicplayer_widget" native="true">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>380</y>
+         <width>801</width>
+         <height>131</height>
+        </rect>
+       </property>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>player</class>
+   <extends>QWidget</extends>
+   <header location="global">player.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>SerchMusic</class>
+   <extends>QWidget</extends>
+   <header location="global">serchmusic.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>downloadMusic</class>
+   <extends>QWidget</extends>
+   <header location="global">downloadmusic.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
+ <connections/>
+</ui>

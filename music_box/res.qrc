@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>res/iTunes.ico</file>
+        <file>res/icon_play.png</file>
+        <file>res/lastsong.png</file>
+        <file>res/nextsong.png</file>
+        <file>res/pause.png</file>
+    </qresource>
+</RCC>
