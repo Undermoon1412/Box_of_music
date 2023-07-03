@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include<QMediaPlayer>
-
+#include<QUrl>
 #define TIMER_TIMEOUT 1000
 
 
@@ -33,7 +33,7 @@ public:
     void jindutiao();           //进度条以及时间标签的设置
 
     void volume_change(int volume);       //音量改变
-
+    void changePlayStyle(int);
 
 signals:
 
@@ -54,6 +54,8 @@ private slots:
 
 
 
+    void on_pushButton_clicked();
+
 private:
     Ui::player *ui;
     bool is_pause;                      //标志位：表示是否处于暂停状态
@@ -66,7 +68,7 @@ private:
     QMediaPlayer *player_music;   //播放器
     QMediaPlaylist *playlist ;  //播放列表
     QTimer *m_pTimer;
-
+    int playModel=0;
 };
 
 #endif // PLAYER_H

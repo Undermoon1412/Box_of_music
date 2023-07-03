@@ -259,11 +259,11 @@ void player::jindutiao()
         qDebug()<< QString::asprintf("%d:%d",min,secs);     //输出当前播放的时间
         ui->label_begin->setText(QString::asprintf("%d:%d",min,secs));
 
-        //本首音乐播放完毕的情况
-        if(player_music->duration() == postion && postion != 0)
+        //本首音乐播放完毕的情况  //这个不能要否则不能实现切换播放模式等功能
+        /*if(player_music->duration() == postion && postion != 0)
         {
             on_pb_nextsong_clicked();   //自动播放下一首
-        }
+        }*/
 
 
     });
@@ -323,3 +323,74 @@ void player::init_all()
         volume_change(volume);
     });
 }
+
+void player::on_pushButton_clicked()//播放模式，单曲循环，列表循环，随机播放
+{
+    if(playModel==0){
+
+        ui->pushButton->setStyleSheet("border-image: url(:/res/circle.png);");
+        playModel=0;
+        changePlayStyle(playModel);
+        //ui->pushButton_8->setIcon(QIcon("://circle.png"));
+        playModel=1;
+        return ;
+    }
+    //单曲循环
+    else if(playModel==1){
+
+        ui->pushButton->setStyleSheet("border-image: url(:/res/circle1.png);");
+        playModel=1;
+        changePlayStyle(playModel);
+        // ui->pushButton_8->setIcon(QIcon("://circle1.png"))
+        playModel=2;
+        return ;
+    }
+    //随机播放
+    else {
+
+
+        ui->pushButton->setStyleSheet("border-image: url(:/res/random.png);");
+        playModel=2;
+        changePlayStyle(playModel);
+        //ui->pushButton_8->setIcon(QIcon("://assets/random.png"));
+        playModel=0;
+        return ;
+    }
+}
+
+
+void player::changePlayStyle(int playModelStyle){
+    //列表循环
+    if(playModelStyle==0){
+        playlist->setPlaybackMode(QMediaPlaylist::Loop);
+        if(player_music->position()==player_music->duration()&&player_music->position()!=0&&player_music->duration()!=0){
+
+            player_music->play();
+
+        }
+        return;
+
+    }
+    //单曲循环
+    else if(playModelStyle==1){
+        // player_music->setPlaylist(playlist);
+        playlist->setPlaybackMode(QMediaPlaylist::CurrentItemInLoop);
+
+        if(player_music->position()==player_music->duration()&&player_music->position()!=0&&player_music->duration()!=0){
+
+            player_music->play();
+
+        }
+    }
+    //随机播放
+    else if(playModelStyle==2) {
+        playlist->setPlaybackMode(QMediaPlaylist::Random);
+        if(player_music->position()==player_music->duration()&&player_music->position()!=0&&player_music->duration()!=0){
+
+            player_music->play();
+
+        }
+    }
+
+}
+
