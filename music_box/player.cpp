@@ -44,7 +44,7 @@ void player::on_pb_bofang_clicked()
     else
     {
         pb_icon = QIcon(":/res//pause.png");
-        playlist->setCurrentIndex(curr_song_Index);
+        //playlist->setCurrentIndex(curr_song_Index);
         ui->label_MusicName->setText(MusicName_list[curr_song_Index]);
         player_music->play();
         is_pause = true;
@@ -94,21 +94,26 @@ void player::on_pb_nextsong_clicked()
 //初始化播放器和播放列表
 void player::init_bofangqi()
 {
-    //初始化播放列表
-    if(player_music != NULL)
-    {
-        player_music->stop();
-        playlist->clear();
-        delete player_music;
-        delete playlist;
-        player_music = NULL;
-        playlist = NULL;
-    }
+//初始化播放列表
+//    if(player_music != NULL)
+//        {
+//            player_music->stop();
+//            player_music->setPlaylist(NULL); //先将播放器中的播放列表清除
+//            delete player_music;
+//            player_music = NULL;
+//        }
+//        if(playlist != NULL)
+//        {
+//            playlist->clear();
+//            delete playlist;
+//            playlist = NULL;
+//        }
 
+    //创建新的播放器和播放列表
     player_music = new QMediaPlayer;
     playlist = new QMediaPlaylist;
     player_music->setVolume(m_volume);
-
+    player_music->setPlaylist(playlist);
 
 
     //打开指定目录    //默认打开本地文件
