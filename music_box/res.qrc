@@ -5,5 +5,8 @@
         <file>res/lastsong.png</file>
         <file>res/nextsong.png</file>
         <file>res/pause.png</file>
+        <file>res/circle.png</file>
+        <file>res/circle1.png</file>
+        <file>res/random.png</file>
     </qresource>
 </RCC>

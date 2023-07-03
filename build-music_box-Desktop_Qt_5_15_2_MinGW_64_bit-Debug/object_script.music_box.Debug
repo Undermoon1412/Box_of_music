@@ -1,0 +1,12 @@
+debug/downloadmusic.o
+debug/main.o
+debug/mainwindow.o
+debug/player.o
+debug/serchmusic.o
+debug/serchresult.o
+debug/qrc_res.o
+debug/moc_downloadmusic.o
+debug/moc_mainwindow.o
+debug/moc_player.o
+debug/moc_serchmusic.o
+debug/moc_serchresult.o
