@@ -21,6 +21,8 @@ chat::chat(QWidget *parent) :
 
     this->setWindowIcon(QIcon(":/new/prefix1/image/qq.png"));
 
+    name = ui->leport_2->text();
+
     connect(socket, &QTcpSocket::readyRead, this, &chat::readMessage);    //接收信息
     connect(socket, &QTcpSocket::disconnected, this, &chat::disconnectSlot);   //打印断开连接信息
 }
@@ -34,9 +36,13 @@ void chat::readMessage()    //接收信息
 {
     messageSound->play();
     QByteArray arr = socket->readAll();
-    QString str;
-    str = QDateTime::currentDateTime().toString("dddd yyyy.MM.dd hh:mm:ss") + '\n' + arr.data();
-    ui->textReceive->append(str);     //显示信息
+//    QString str;
+//    str = QDateTime::currentDateTime().toString("dddd yyyy.MM.dd hh:mm:ss") + '\n' + arr.data();
+//    qDebug()<<arr.data()<<endl;
+
+//    name = ui->leport_2->text();
+    //ui->textReceive->append(QDateTime::currentDateTime().toString("dddd yyyy.MM.dd hh:mm:ss"));
+    ui->textReceive->append(arr.data());     //显示信息
 }
 
 
@@ -79,12 +85,15 @@ void chat::on_connectBtn_clicked()      //与客户端连接或者断开
 void chat::on_sendBtn_clicked()    //给服务端发送信息
 {
     QString str = ui->textSend->toPlainText();
+    name = ui->leport_2->text();
+    qDebug()<<name+": "+str<<endl;
+
     if(socket->isOpen() && socket->isValid())
     {
-        socket->write(str.toUtf8());    //给服务端发送信息
+        socket->write((name+": "+str).toUtf8());    //给服务端发送信息
         ui->textSend->clear();
     }
 
-    QString showStr = QDateTime::currentDateTime().toString("dddd yyyy.MM.dd hh:mm:ss") + '\n' + str;
+    QString showStr = QDateTime::currentDateTime().toString("dddd yyyy.MM.dd hh:mm:ss") + '\n' +name+": "+ str;
     ui->textReceive->append(showStr);     //显示自己发送的信息
 }

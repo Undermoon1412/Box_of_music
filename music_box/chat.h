@@ -11,6 +11,7 @@
 #include <QIcon>
 #include <QNetworkProxy>
 #include <QWidget>
+#include <QString>
 
 namespace Ui {
 class chat;
@@ -38,6 +39,8 @@ private slots:
 private:
     Ui::chat *ui;
 
+
+    QString name = "";
     QTcpSocket *socket;
     bool connectState;  //客户端连接状态
 };
