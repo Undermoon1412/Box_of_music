@@ -96,7 +96,7 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "\344\275\225\346\230\223\344\272\221", nullptr));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "\347\256\200\346\230\223\346\222\255\346\224\276\345\231\250", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainWindow", "\346\220\234\347\264\242\351\237\263\344\271\220", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "\346\234\254\345\234\260\351\237\263\344\271\220", nullptr));
     } // retranslateUi

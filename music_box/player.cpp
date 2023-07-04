@@ -9,6 +9,8 @@
 #include<QTimer>
 #include <chrono>
 #include <thread>
+#include <QAudioDeviceInfo>
+
 
 int C_curr_row = -1;
 
@@ -48,6 +50,27 @@ void player::on_pb_bofang_clicked()
         pb_icon = QIcon(":/res//pause.png");
         //playlist->setCurrentIndex(curr_song_Index);
         ui->label_MusicName->setText(MusicName_list[curr_song_Index]);
+
+        // 创建 QAudioDeviceInfo 对象获取音频设备信息
+//        QAudioDeviceInfo deviceInfo = QAudioDeviceInfo::defaultOutputDevice();
+//        QAudioFormat desiredFormat;
+//        desiredFormat.setSampleRate(44100); // 设置采样率
+//        desiredFormat.setChannelCount(2); // 设置声道数
+//        desiredFormat.setSampleSize(16); // 设置样本大小
+//        desiredFormat.setCodec("audio/pcm"); // 设置编解码器
+//        desiredFormat.setByteOrder(QAudioFormat::LittleEndian); // 设置字节顺序
+//        if (!deviceInfo.isFormatSupported(desiredFormat)) {
+//            // 如果设备不支持所需格式，则尝试找到最接近的格式
+//            desiredFormat = deviceInfo.nearestFormat(desiredFormat);
+//        }
+
+//        // 设置音频输出设备
+//        player_music->setAudioOutput(deviceInfo);
+
+
+        player_music->setPlaybackRate(rate);
+
+
         player_music->play();
         is_pause = true;
     }
@@ -272,7 +295,7 @@ void player::jindutiao()
             {
 
                 qDebug()<<"当前歌是："<<curr_song_Index<<endl;
-                curr_song_Index++;
+                curr_song_Index = (curr_song_Index+1)%song_nums;
                 qDebug()<<"playmodel是："<<playModel<<endl;
                 qDebug()<<"下一首是："<<curr_song_Index<<endl;
 
@@ -406,8 +429,6 @@ void player::on_pushButton_clicked()//播放模式，单曲循环，列表循环
     }
     //随机播放
     else {
-
-
         ui->pushButton->setStyleSheet("border-image: url(:/res/random.png);");
         //playModel=2;
         //changePlayStyle(playModel);

@@ -1,6 +1,7 @@
 #include "serchresult.h"
 #include "ui_serchresult.h"
 #include "downloadmusic.h"
+#include "player.h"
 
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>

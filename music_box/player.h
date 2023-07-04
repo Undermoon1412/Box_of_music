@@ -69,6 +69,7 @@ private:
     QMediaPlaylist *playlist ;  //播放列表
     QTimer *m_pTimer;
     int playModel=0;
+    float rate = 1.0;
 };
 
 #endif // PLAYER_H
