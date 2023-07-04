@@ -2,11 +2,13 @@
 #include "ui_player.h"
 #include "downloadmusic.h"
 
-
+#include <iostream>
+#include <random>
 #include<QDir>
 #include<QMediaPlaylist>
 #include<QTimer>
-
+#include <chrono>
+#include <thread>
 
 int C_curr_row = -1;
 
@@ -260,10 +262,62 @@ void player::jindutiao()
         ui->label_begin->setText(QString::asprintf("%d:%d",min,secs));
 
         //本首音乐播放完毕的情况  //这个不能要否则不能实现切换播放模式等功能
-        /*if(player_music->duration() == postion && postion != 0)
+        if(player_music->duration() == postion && postion != 0)
         {
-            on_pb_nextsong_clicked();   //自动播放下一首
-        }*/
+
+            qDebug()<<"当前歌已经播放完了"<<endl;
+            //on_pb_nextsong_clicked();   //自动播放下一首
+            //changePlayStyle(playModel);
+            if(playModel == 0)
+            {
+
+                qDebug()<<"当前歌是："<<curr_song_Index<<endl;
+                curr_song_Index++;
+                qDebug()<<"playmodel是："<<playModel<<endl;
+                qDebug()<<"下一首是："<<curr_song_Index<<endl;
+
+                ui->label_MusicName->setText(MusicName_list[(curr_song_Index)%song_nums]);
+                qDebug()<<MusicName_list[(curr_song_Index)%song_nums]<<endl;
+                change_music(curr_song_Index);
+            }
+
+            if(playModel == 1)
+            {
+
+                qDebug()<<"下一首是："<<curr_song_Index<<endl;
+                qDebug()<<"playmodel是："<<playModel<<endl;
+//                ui->label_MusicName->setText(MusicName_list[(curr_song_Index)%song_nums]);
+//                qDebug()<<MusicName_list[(curr_song_Index)%song_nums]<<endl;
+                change_music(curr_song_Index);
+            }
+
+            if(playModel == 2)
+            {
+
+                //qDebug()<<"下一首是："<<curr_song_Index<<endl;
+                qDebug()<<"playmodel是："<<playModel<<endl;
+
+
+                unsigned seed = std::chrono::system_clock::now().time_since_epoch().count(); // 使用当前时间的时间戳作为种子
+                std::this_thread::sleep_for(std::chrono::seconds(1)); // 延迟 1 秒
+
+                std::mt19937 gen(seed); // 为随机数引擎设置种子，使用不同的种子生成不同的随机数序列
+                std::uniform_int_distribution<> dis(0, 100); // 创建一个范围在 0 到 100 的均匀整数分布器
+
+                int randomNumber = dis(gen); // 生成随机数
+//                ui->label_MusicName->setText(MusicName_list[(curr_song_Index)%song_nums]);
+//                qDebug()<<MusicName_list[(curr_song_Index)%song_nums]<<endl;
+
+
+                std::cout << "random: " << randomNumber << std::endl;
+                curr_song_Index = randomNumber%song_nums;
+                qDebug()<<"下一首是："<<curr_song_Index<<endl;
+                change_music(curr_song_Index);
+            }
+
+
+        }
+
 
 
     });
@@ -326,71 +380,104 @@ void player::init_all()
 
 void player::on_pushButton_clicked()//播放模式，单曲循环，列表循环，随机播放
 {
+
+    qDebug()<<"当前playmodel是："<<playModel<<endl;
+    playModel = (playModel+1)%3;
     if(playModel==0){
 
         ui->pushButton->setStyleSheet("border-image: url(:/res/circle.png);");
-        playModel=0;
-        changePlayStyle(playModel);
+//        playModel=0;
+        //changePlayStyle(playModel);
         //ui->pushButton_8->setIcon(QIcon("://circle.png"));
-        playModel=1;
-        return ;
+
+        //playModel=1;
+        //return ;
     }
     //单曲循环
     else if(playModel==1){
 
         ui->pushButton->setStyleSheet("border-image: url(:/res/circle1.png);");
-        playModel=1;
-        changePlayStyle(playModel);
+        //playModel=1;
+        //changePlayStyle(playModel);
         // ui->pushButton_8->setIcon(QIcon("://circle1.png"))
-        playModel=2;
-        return ;
+        //playModel=2;
+//        qDebug()<<"当前playmodel是："<<playModel<<endl;
+        //return ;
     }
     //随机播放
     else {
 
 
         ui->pushButton->setStyleSheet("border-image: url(:/res/random.png);");
-        playModel=2;
-        changePlayStyle(playModel);
+        //playModel=2;
+        //changePlayStyle(playModel);
         //ui->pushButton_8->setIcon(QIcon("://assets/random.png"));
-        playModel=0;
-        return ;
+        //playModel=0;
+        //return ;
     }
+    //playModel = (playModel++)%3;
+    //playModel++;
+    qDebug()<<"当前playmodel是："<<playModel<<endl;
+    return ;
 }
 
 
-void player::changePlayStyle(int playModelStyle){
-    //列表循环
-    if(playModelStyle==0){
-        playlist->setPlaybackMode(QMediaPlaylist::Loop);
-        if(player_music->position()==player_music->duration()&&player_music->position()!=0&&player_music->duration()!=0){
+//void player::changePlayStyle(int playModelStyle){
+//    //列表循环
+//    if(playModelStyle==0){
+//        //playlist->setPlaybackMode(QMediaPlaylist::Loop);
+//        if(player_music->position()==player_music->duration()&&player_music->position()!=0&&player_music->duration()!=0){
 
-            player_music->play();
+//            //ui->label_MusicName->setText(MusicName_list[(curr_song_Index++)%song_nums]);
 
-        }
-        return;
 
-    }
-    //单曲循环
-    else if(playModelStyle==1){
-        // player_music->setPlaylist(playlist);
-        playlist->setPlaybackMode(QMediaPlaylist::CurrentItemInLoop);
+//            curr_song_Index++;
+//            change_music(curr_song_Index);
 
-        if(player_music->position()==player_music->duration()&&player_music->position()!=0&&player_music->duration()!=0){
+//            QString currentMediaName = QFileInfo(playlist->currentMedia().canonicalUrl().toLocalFile()).baseName();
 
-            player_music->play();
+//            ui->label_MusicName->setText(currentMediaName);
 
-        }
-    }
-    //随机播放
-    else if(playModelStyle==2) {
-        playlist->setPlaybackMode(QMediaPlaylist::Random);
-        if(player_music->position()==player_music->duration()&&player_music->position()!=0&&player_music->duration()!=0){
+//            //qDebug()<<(curr_song_Index)%song_nums<<endl;
+//            //change_music(curr_song_Index);
 
-            player_music->play();
+//            //player_music->play();
 
-        }
-    }
+//        }
+//        return;
 
-}
+//    }
+//    //单曲循环
+//    else if(playModelStyle==1){
+//        // player_music->setPlaylist(playlist);
+//        //playlist->setPlaybackMode(QMediaPlaylist::CurrentItemInLoop);
+
+//        if(player_music->position()==player_music->duration()&&player_music->position()!=0&&player_music->duration()!=0){
+
+//           QString currentMediaName = QFileInfo(playlist->currentMedia().canonicalUrl().toLocalFile()).baseName();
+
+//            ui->label_MusicName->setText(currentMediaName);
+
+//            qDebug()<<"currentMediaName"<<endl;
+
+//              player_music->play();
+//            //change_music(curr_song_Index);
+
+//        }
+//    }
+//    //随机播放
+//    else if(playModelStyle==2) {
+//        //playlist->setPlaybackMode(QMediaPlaylist::Random);
+//        if(player_music->position()==player_music->duration()&&player_music->position()!=0&&player_music->duration()!=0){
+
+//            QString currentMediaName = QFileInfo(playlist->currentMedia().canonicalUrl().toLocalFile()).baseName();
+
+//            ui->label_MusicName->setText(currentMediaName);
+
+//            player_music->play();
+
+//        }
+//    }
+
+//}
 
