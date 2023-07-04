@@ -1,0 +1,14 @@
+release/chat.o
+release/downloadmusic.o
+release/main.o
+release/mainwindow.o
+release/player.o
+release/serchmusic.o
+release/serchresult.o
+release/qrc_res.o
+release/moc_chat.o
+release/moc_downloadmusic.o
+release/moc_mainwindow.o
+release/moc_player.o
+release/moc_serchmusic.o
+release/moc_serchresult.o

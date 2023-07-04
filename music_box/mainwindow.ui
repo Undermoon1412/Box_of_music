@@ -55,7 +55,7 @@ QTabWidget QTabBar
 </string>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>2</number>
         </property>
         <property name="iconSize">
          <size>
@@ -85,6 +85,11 @@ QTabWidget QTabBar
          </attribute>
          <attribute name="title">
           <string>本地音乐</string>
+         </attribute>
+        </widget>
+        <widget class="chat" name="tab_3">
+         <attribute name="title">
+          <string>聊天室</string>
          </attribute>
         </widget>
        </widget>
@@ -121,6 +126,12 @@ QTabWidget QTabBar
    <class>downloadMusic</class>
    <extends>QWidget</extends>
    <header location="global">downloadmusic.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>chat</class>
+   <extends>QWidget</extends>
+   <header location="global">chat.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
