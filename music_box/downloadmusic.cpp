@@ -6,7 +6,8 @@
 #include"player.h"
 #include<QTableWidget>
 
-#define COL_NUMS 4
+#define COL_NUMS 1
+//#define COL_NUMS 4
 
 
 bool is_F5 = false;     //不需要刷新
