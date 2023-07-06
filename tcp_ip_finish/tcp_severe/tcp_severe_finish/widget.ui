@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>洲洲TCP服务端</string>
+   <string>12组TCP服务端</string>
   </property>
   <widget class="QListWidget" name="listWidget">
    <property name="geometry">

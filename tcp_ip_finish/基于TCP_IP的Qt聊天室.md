@@ -1,5 +1,11 @@
 # 基于TCP/IP的Qt聊天室
 
+文档地址：https://blog.csdn.net/Arcofcosmos/article/details/110562679
+
+## 成果展示
+
+<img src="C:\Users\TuZhou\Desktop\聊天室.gif" style="zoom: 100%" />
+
 环境：Qt Creator5.12
 
 ## 服务端
@@ -205,6 +211,10 @@ severe.h:
 3. `QTcpSocket.errorString()         //返回套接字错误信息`
 4. `QTcpSocket.isOpen()      //检查套接字是否打开`
 5. `QTcpSocket.isValid()          //检查套接字是否可用`
+
+
+
+
 
 
 
