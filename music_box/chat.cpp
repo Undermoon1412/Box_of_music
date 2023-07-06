@@ -19,7 +19,7 @@ chat::chat(QWidget *parent) :
     messageSound = new QSound(":/new/prefix1/sounds/iphone.wav", this);
     connectSound = new QSound(":/new/prefix1/sounds/keke.wav", this);
 
-    this->setWindowIcon(QIcon(":/new/prefix1/image/qq.png"));
+//    this->setWindowIcon(QIcon(":/new/prefix1/image/qq.png"));
 
     name = ui->leport_2->text();
 
@@ -48,7 +48,8 @@ void chat::readMessage()    //接收信息
 
 void chat::disconnectSlot()    //打印连接断开信息
 {
-   // ui->listWidget->addItem("clint disconnected");
+//    ui->listWidget->addItem("clint disconnected");
+    QMessageBox::warning(this, "连接断开", socket->errorString());
 }
 
 
@@ -62,6 +63,7 @@ void chat::on_connectBtn_clicked()      //与客户端连接或者断开
         if(socket->waitForConnected())   //等待连接成功
         {
            // ui->listWidget->addItem("连接成功");
+            QMessageBox::information(this, "连上服务器", "欢迎上线");
             ui->connectBtn->setText("关闭连接");
             connectSound->play();
             connectState = true;
@@ -72,12 +74,12 @@ void chat::on_connectBtn_clicked()      //与客户端连接或者断开
             QMessageBox::warning(this, "连接失败", socket->errorString());   //连接错误信息提醒
         }
     }
-
     else   //客户端已经连接
     {
         socket->close();   //关闭套接字，此时会发送disconnected信号
         connectSound->play();
         ui->connectBtn->setText("连接");
+        connectState = false;
     }
 }
 
