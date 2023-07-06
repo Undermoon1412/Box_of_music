@@ -48,7 +48,6 @@ void chat::readMessage()    //接收信息
 
 void chat::disconnectSlot()    //打印连接断开信息
 {
-//    ui->listWidget->addItem("clint disconnected");
     QMessageBox::warning(this, "连接断开", socket->errorString());
 }
 
@@ -63,12 +62,12 @@ void chat::on_connectBtn_clicked()      //与客户端连接或者断开
         if(socket->waitForConnected())   //等待连接成功
         {
            // ui->listWidget->addItem("连接成功");
-            QMessageBox::information(this, "连上服务器", "欢迎上线");
+            ui->leport_2->setReadOnly(true); // 设置文本框只读
+            QMessageBox::information(this, "连上服务器", "欢迎上线，线上期间名字不可以更改");
             ui->connectBtn->setText("关闭连接");
             connectSound->play();
             connectState = true;
         }
-
         else     //连接失败
         {
             QMessageBox::warning(this, "连接失败", socket->errorString());   //连接错误信息提醒
@@ -78,6 +77,7 @@ void chat::on_connectBtn_clicked()      //与客户端连接或者断开
     {
         socket->close();   //关闭套接字，此时会发送disconnected信号
         connectSound->play();
+        ui->leport_2->setReadOnly(false);
         ui->connectBtn->setText("连接");
         connectState = false;
     }
@@ -86,7 +86,7 @@ void chat::on_connectBtn_clicked()      //与客户端连接或者断开
 
 void chat::on_sendBtn_clicked()    //给服务端发送信息
 {
-    QString str = ui->textSend->toPlainText();
+    QString str = ui->textSend->toPlainText(); // 多行简单文本框用toPlainText
     name = ui->leport_2->text();
     qDebug()<<name+": "+str<<endl;
 
